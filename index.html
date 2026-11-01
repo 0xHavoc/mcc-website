@@ -177,6 +177,29 @@
 
     .about a:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(74, 159, 216, 0.4); }
 
+    .project-card {
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(31, 41, 51, 0.1);
+    }
+
+    .project-card h2 { margin: 0 0 12px; font-size: 1.4rem; }
+    .project-card p { color: var(--text-secondary); line-height: 1.7; margin: 0 0 24px; }
+
+    .project-card a {
+      color: #fff;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
     .gallery {
       list-style: none;
       margin: 32px 0 0;
@@ -353,8 +376,16 @@
       <div class="reveal">
         <h1 data-i18n="it">Progetti</h1>
         <h1 data-i18n="en">Projects</h1>
-        <p class="about" data-i18n="it">In costruzione</p>
-        <p class="about" data-i18n="en">Work in progress</p>
+        <div class="project-card" data-i18n="it">
+          <h2>Sito web MCC</h2>
+          <p>Il sito che stai guardando: una pagina unica, bilingue e open source, con i workshop e i contatti della community.</p>
+          <a href="https://github.com/MatteoStifano/mcc-website" target="_blank" rel="noopener">Vedi su GitHub</a>
+        </div>
+        <div class="project-card" data-i18n="en">
+          <h2>MCC website</h2>
+          <p>The site you are looking at: a bilingual, open-source one-page website with the community's workshops and contacts.</p>
+          <a href="https://github.com/MatteoStifano/mcc-website" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
       </div>
     </section>
 
