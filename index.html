@@ -36,7 +36,7 @@
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+    html { overflow-x: hidden; scroll-behavior: smooth; scroll-padding-top: 64px; }
 
     body {
       margin: 0;
@@ -279,10 +279,26 @@
     html[data-lang="en"] .site-nav [data-i18n="en"] { display: inline; }
 
     @media (max-width: 640px) {
-      .topbar { padding: 0 12px; gap: 8px; }
-      .brand { display: none; }
-      .site-nav a { padding: 6px 8px; font-size: 0.82rem; }
-      .lang-switch .sep { margin: 0 3px; }
+      html { scroll-padding-top: 96px; }
+      .topbar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        row-gap: 4px;
+      }
+      .brand { order: 1; }
+      .lang-switch { order: 2; }
+      .site-nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 0;
+      }
+      .site-nav a { padding: 6px 8px; font-size: 0.85rem; }
+      section { padding: 120px 16px 56px; }
+      .about { font-size: 1rem; }
+      .project-card { padding: 24px 20px; }
+      .gallery { grid-template-columns: minmax(0, 300px); }
     }
   </style>
   <script>
