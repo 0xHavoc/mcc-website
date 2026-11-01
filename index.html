@@ -9,61 +9,84 @@
     :root {
       --accent: #4a9fd8;
       --accent-dark: #2f7fb8;
+      --accent-2: #7c6cf0;
       --text-primary: #1f2933;
       --text-secondary: #52606d;
       --bg: #f7fafc;
+      --bg-alt: #eef4f9;
       --card-bg: #ffffff;
       --border: #e4e9ef;
+      --nav-bg: rgba(247, 250, 252, 0.8);
       color-scheme: light;
     }
 
     html[data-theme="dark"] {
       --accent: #4a9fd8;
       --accent-dark: #61aee6;
+      --accent-2: #9a8cff;
       --text-primary: #e5eaf0;
       --text-secondary: #a3b0bd;
       --bg: #0f1419;
+      --bg-alt: #141b22;
       --card-bg: #1a2129;
       --border: #2c3744;
+      --nav-bg: rgba(15, 20, 25, 0.8);
       color-scheme: dark;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--bg);
+      background: var(--bg);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--text-primary);
-      padding: 24px;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    main {
-      width: 100%;
-      max-width: 560px;
-      text-align: center;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px 32px;
-      box-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
-      position: relative;
-      transition: background-color 0.25s ease, border-color 0.25s ease;
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 24px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .lang-switch {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      font-size: 0.85rem;
+    .site-nav {
+      display: flex;
+      gap: 4px;
+      align-items: center;
     }
+
+    .site-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-dark);
+      background: var(--bg-alt);
+    }
+
+    .brand { font-weight: 800; letter-spacing: 1px; color: var(--accent-dark); text-decoration: none; }
+
+    .lang-switch { font-size: 0.85rem; white-space: nowrap; }
 
     .lang-switch button {
       background: none;
@@ -75,134 +98,168 @@
       border-bottom: 1px solid transparent;
     }
 
-    .lang-switch button:hover {
-      color: var(--accent-dark);
-      border-bottom-color: var(--accent-dark);
-    }
+    .lang-switch button:hover { color: var(--accent-dark); border-bottom-color: var(--accent-dark); }
+    .lang-switch button[aria-current="true"] { color: var(--accent-dark); font-weight: 600; }
+    .lang-switch .theme-toggle { border-bottom: none; font-size: 1rem; line-height: 1; vertical-align: middle; }
+    .lang-switch .sep { color: var(--border); margin: 0 6px; }
 
-    .lang-switch button[aria-current="true"] {
-      color: var(--accent-dark);
-      font-weight: 600;
-    }
-
-    .lang-switch .theme-toggle {
-      border-bottom: none;
-      font-size: 1rem;
-      line-height: 1;
-      vertical-align: middle;
-    }
-
-    .lang-switch .sep {
-      color: var(--border);
-      margin: 0 6px;
-    }
-
-    .site-nav {
-      margin: 8px 0 16px;
-      font-size: 0.95rem;
+    section {
+      min-height: 100vh;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      column-gap: 10px;
-      row-gap: 8px;
+      justify-content: center;
+      text-align: center;
+      padding: 96px 24px 72px;
     }
 
-    .site-nav a {
-      color: var(--accent-dark);
-      text-decoration: none;
-      font-weight: 600;
-      padding: 4px 2px;
+    section:nth-of-type(even) { background: var(--bg-alt); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(60% 50% at 20% 10%, rgba(74, 159, 216, 0.22), transparent 70%),
+        radial-gradient(50% 50% at 85% 85%, rgba(124, 108, 240, 0.18), transparent 70%),
+        var(--bg);
     }
 
-    .site-nav a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      max-width: 260px;
-      width: 78%;
+    .hero img {
+      width: min(560px, 85vw, 55vh);
       height: auto;
-      margin-bottom: 8px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(47, 127, 184, 0.2);
     }
 
     .logo-dark { display: none; }
     html[data-theme="dark"] .logo-light { display: none; }
     html[data-theme="dark"] .logo-dark { display: inline; }
 
-    .tagline {
-      color: #61aee6;
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      margin: 8px 0 24px;
+    .scroll-hint {
+      margin-top: 40px;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      text-decoration: none;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    @keyframes bob { 50% { transform: translateY(8px); } }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 0 0 24px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .about {
       color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0 auto;
-      max-width: 440px;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      margin: 0 auto 16px;
+      max-width: 620px;
+    }
+
+    .about a {
+      color: #fff;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      text-decoration: none;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 10px 24px rgba(74, 159, 216, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .about a:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(74, 159, 216, 0.4); }
+
+    .gallery {
+      list-style: none;
+      margin: 32px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .gallery figure { margin: 0; }
+
+    .gallery button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--card-bg);
+      cursor: zoom-in;
+      box-shadow: 0 10px 30px rgba(31, 41, 51, 0.1);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .gallery button:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31, 41, 51, 0.18); }
+    .gallery img { display: block; width: 100%; height: auto; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 24px;
+    }
+
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      cursor: pointer;
     }
 
     footer {
-      margin-top: 32px;
-      padding-top: 16px;
+      padding: 24px;
+      text-align: center;
       border-top: 1px solid var(--border);
       font-size: 0.85rem;
       color: var(--text-secondary);
     }
 
-    [data-i18n] {
-      display: none;
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-hint { animation: none; }
     }
 
+    [data-i18n] { display: none; }
     html[data-lang="it"] [data-i18n="it"],
-    html[data-lang="en"] [data-i18n="en"] {
-      display: block;
-    }
-
+    html[data-lang="en"] [data-i18n="en"] { display: block; }
     html[data-lang="it"] .site-nav [data-i18n="it"],
-    html[data-lang="en"] .site-nav [data-i18n="en"] {
-      display: inline;
-    }
+    html[data-lang="en"] .site-nav [data-i18n="en"] { display: inline; }
 
-    @media (max-width: 480px) {
-      main {
-        padding: 32px 20px;
-      }
-
-      .lang-switch {
-        position: static;
-        display: block;
-        margin-bottom: 16px;
-        text-align: right;
-      }
-
-      .site-nav {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-      }
-
-      .site-nav .sep {
-        display: none;
-      }
-
-      .site-nav a {
-        padding: 10px 14px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-      }
-
-      .tagline {
-        font-size: 1rem;
-      }
-
-      .about {
-        font-size: 0.95rem;
-      }
+    @media (max-width: 640px) {
+      .topbar { padding: 0 12px; gap: 8px; }
+      .brand { display: none; }
+      .site-nav a { padding: 6px 8px; font-size: 0.82rem; }
+      .lang-switch .sep { margin: 0 3px; }
     }
   </style>
   <script>
@@ -216,7 +273,14 @@
   </script>
 </head>
 <body>
-  <main>
+  <header class="topbar">
+    <a class="brand" href="#home">MCC</a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="#about"><span data-i18n="it">Chi siamo</span><span data-i18n="en">About us</span></a>
+      <a href="#workshops">Workshops</a>
+      <a href="#projects"><span data-i18n="it">Progetti</span><span data-i18n="en">Projects</span></a>
+      <a href="#contacts"><span data-i18n="it">Contatti</span><span data-i18n="en">Contacts</span></a>
+    </nav>
     <nav class="lang-switch" aria-label="Language selector">
       <button type="button" data-set-lang="it" aria-current="true">IT</button>
       <span class="sep">|</span>
@@ -224,25 +288,96 @@
       <span class="sep">|</span>
       <button type="button" class="theme-toggle" data-toggle-theme aria-label="Toggle dark mode">🌙</button>
     </nav>
+  </header>
 
-    <img class="logo-light" src="mcc_logo.jpeg" alt="MCC - Monopoli Coders Club logo">
-    <img class="logo-dark" src="mcc_logo_dark.jpg" alt="MCC - Monopoli Coders Club logo">
+  <main>
+    <section id="home" class="hero">
+      <img class="logo-light reveal" src="mcc_logo.jpeg" alt="MCC - Monopoli Coders Club logo">
+      <img class="logo-dark reveal" src="mcc_logo_dark.jpg" alt="MCC - Monopoli Coders Club logo">
+      <a class="scroll-hint" href="#about" aria-label="Scroll down">&darr;</a>
+    </section>
 
-    <nav class="site-nav" aria-label="Site navigation">
-      <a href="chi-siamo.html" data-i18n="it">Chi siamo</a>
-      <a href="chi-siamo.html" data-i18n="en">About us</a>
-      <span class="sep">|</span>
-      <a href="workshops.html">Workshops</a>
-      <span class="sep">|</span>
-      <a href="progetti.html" data-i18n="it">Progetti</a>
-      <a href="progetti.html" data-i18n="en">Projects</a>
-      <span class="sep">|</span>
-      <a href="contatti.html" data-i18n="it">Contatti</a>
-      <a href="contatti.html" data-i18n="en">Contacts</a>
-    </nav>
+    <section id="about">
+      <div class="reveal">
+        <h1 data-i18n="it">Chi siamo</h1>
+        <h1 data-i18n="en">About us</h1>
+        <p class="about" data-i18n="it">
+          Monopoli Coders Club è una community di sviluppatori, studenti e
+          appassionati di tecnologia con base a Monopoli. Ci incontriamo per
+          condividere conoscenze, lavorare su progetti e crescere insieme
+          attraverso workshop, talk e sessioni di coding pratico.
+        </p>
+        <p class="about" data-i18n="en">
+          Monopoli Coders Club is a community of developers, students, and tech
+          enthusiasts based in Monopoli. We meet to share knowledge, work on
+          projects, and grow our skills together through workshops, talks, and
+          hands-on coding sessions.
+        </p>
+      </div>
+    </section>
 
-    <footer>&copy; <span id="year"></span> Monopoli Coders Club</footer>
+    <section id="workshops">
+      <div class="reveal">
+        <h1 data-i18n="it">Workshops</h1>
+        <h1 data-i18n="en">Workshops</h1>
+        <p class="about" data-i18n="it">
+          Una raccolta dei workshop organizzati da Monopoli Coders Club:
+          incontri gratuiti e aperti a tutti, pensati per condividere strumenti e tecniche,
+          e crescere insieme come community.
+        </p>
+        <p class="about" data-i18n="en">
+          A collection of workshops organized by Monopoli Coders Club: free
+          events open to everyone, designed to share tools and techniques, and
+          grow together as a community.
+        </p>
+      </div>
+      <ul class="gallery reveal">
+        <li>
+          <figure>
+            <button type="button" data-full="workshops/workshop_0.jpeg" data-alt="Creating UI Tests via Playwright MCP">
+              <img src="workshops/workshop_0.jpeg" alt="Creating UI Tests via Playwright MCP poster" loading="lazy">
+            </button>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button type="button" data-full="workshops/workshop_1.jpeg" data-alt="Dalla Fotogrammetria alla Spatial Intelligence">
+              <img src="workshops/workshop_1.jpeg" alt="Dalla Fotogrammetria alla Spatial Intelligence poster" loading="lazy">
+            </button>
+          </figure>
+        </li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <div class="reveal">
+        <h1 data-i18n="it">Progetti</h1>
+        <h1 data-i18n="en">Projects</h1>
+        <p class="about" data-i18n="it">In costruzione</p>
+        <p class="about" data-i18n="en">Work in progress</p>
+      </div>
+    </section>
+
+    <section id="contacts">
+      <div class="reveal">
+        <h1 data-i18n="it">Contatti</h1>
+        <h1 data-i18n="en">Contacts</h1>
+        <p class="about" data-i18n="it">
+          <a href="https://chat.whatsapp.com/Bu0LleFmWiv0bLo8nDVRU2" target="_blank" rel="noopener">Entra nel gruppo WhatsApp</a>
+        </p>
+        <p class="about" data-i18n="en">
+          <a href="https://chat.whatsapp.com/Bu0LleFmWiv0bLo8nDVRU2" target="_blank" rel="noopener">Join our WhatsApp group</a>
+        </p>
+      </div>
+    </section>
   </main>
+
+  <footer>&copy; <span id="year"></span> Monopoli Coders Club</footer>
+
+  <div class="lightbox" id="lightbox">
+    <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="" id="lightbox-img">
+  </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -280,6 +415,54 @@
 
     themeBtn.addEventListener("click", () => {
       applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    const navLinks = document.querySelectorAll(".site-nav a");
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    document.querySelectorAll("main section").forEach((s) => sectionObserver.observe(s));
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add("open");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightboxImg.src = "";
+    }
+
+    document.querySelectorAll(".gallery button").forEach((btn) => {
+      btn.addEventListener("click", () => openLightbox(btn.dataset.full, btn.dataset.alt));
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
     });
   </script>
 </body>
